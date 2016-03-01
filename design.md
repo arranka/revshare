@@ -11,7 +11,8 @@
 | last_name        | string           | true     |               |                |
 | email            | string           | true     |               | unique         |
 | password         | string           | true     |               |                |
-| referral_link    | string           | true     |               | unique         |
+| referral_url     | string           | true     |               | unique         |
+
 ### Category - category
 
 | Column           | Data Type        | Not Null | Default Value | Extras         |
