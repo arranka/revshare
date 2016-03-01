@@ -1,17 +1,33 @@
 # RevShare Design
 
+## URL Structure
+
+/ - Main sales page
+/register - Sign up page
+/login - Login page
+/logout - Logout post URL. Redirects to 
+
+/dashboard - Logged in user's dashboard. Gets redirected to /dashboard/getting-started
+/dashboard/getting-started - Information on how to get started on the site.
+/dashboard/revenue-programs - Shows a list of all revenue programs in their specifed categories.
+/dashboard/account - Account information, update name, password, email etc.
+
+/admin/users - Page to manage Users
+/admin/revenue-programs - Page to Manage Revenue Programs
+/admin/categories - Page to manage categories
+
 ## Models / Database
 
 ### User - user
+
 | Column           | Data Type        | Not Null | Default Value | Extras         |
 |------------------|------------------|----------|---------------|----------------|
 | id               | unsigned integer | true     |               | auto increment |
 | referer_user_id  | unsigned integer | false    | null          |                |
-| first_name       | string           | true     |               |                |
-| last_name        | string           | true     |               |                |
+| username         | string           | true     |               | unique         |
 | email            | string           | true     |               | unique         |
 | password         | string           | true     |               |                |
-| referral_url     | string           | true     |               | unique         |
+
 
 ### Category - category
 
@@ -20,7 +36,9 @@
 | id               | unsigned integer | true     |               | auto increment |
 | name             | string           | true     |               |                |
 
+
 ### RevenueProgram - revenue_program
+
 | Column                | Data Type        | Not Null | Default Value | Extras         |
 |-----------------------|------------------|----------|---------------|----------------|
 | id                    | unsigned integer | true     |               | auto increment |
@@ -32,7 +50,9 @@
 | default_referral_link | string           | true     |               |                |
 | rating                | unsigned tinyint | true     |               |                |
 
+
 ### UserRevenueProgram - user_revenue_program
+
 | Column              | Data Type        | Not Null | Default Value | Extras         |
 |---------------------|------------------|----------|---------------|----------------|
 | id                  | unsigned integer | true     |               | auto increment |
