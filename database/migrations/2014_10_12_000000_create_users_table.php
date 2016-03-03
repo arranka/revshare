@@ -15,12 +15,13 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('referer_user_id')->unsigned()->nullable();
-            $table->foreign('referer_user_id')->references('id')->on('users');
+            $table->integer('enroller_user_id')->unsigned()->nullable();
+            $table->foreign('enroller_user_id')->references('id')->on('users');
             
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

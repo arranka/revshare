@@ -23,4 +23,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function enroller()
+    {
+        return $this->belongsTo('App\User', 'enroller_user_id');
+    }
+
+    public function referrals()
+    {
+        return $this->hasMany('App\User', 'enroller_user_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin == 1;
+    }
 }
