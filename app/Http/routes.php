@@ -26,6 +26,24 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['middleware' => 'web'], function () {
+    // Authorization routes
+    Route::auth();
+
+    // Dashboard routes
+    Route::group(['prefix' => 'dashboard'], function() {
+        Route::get('/', 'HomeController@index');
+    });
+
+    // Affiliate routes
+    Route::group(['prefix' => 'a'], function() {
+        Route::get('/', 'AffiliateController@index');
+        Route::get('/{username}', 'AffiliateController@affiliate');
+        Route::get('/signup/{username}', 'AffiliateController@signup');
+    });
+
+    // Admin routes
+    Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function() {
+        Route::get('/', 'AdminController@index');
+    });
 });

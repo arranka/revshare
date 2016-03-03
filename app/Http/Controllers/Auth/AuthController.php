@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new authentication controller instance.
@@ -63,10 +63,33 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $newUser = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        // If new user was enrolled by someone set them as the enroller.
+        if ($this->userWasEnrolled($data))
+        {
+            $this->associateUserWithEnroller($newUser, $data);
+        }
+
+        return $newUser;
+    }
+
+    private function userWasEnrolled(array $data)
+    {
+        return isset($data['enroller_user_id']);
+    }
+
+    private function associateUserWithEnroller(User $newUser, array $data)
+    {
+        $enroller = User::find($data['enroller_user_id']);
+        if ($enroller)
+        {
+            $newUser->enroller()->associate($enroller);
+            $newUser->save();
+        }
     }
 }
