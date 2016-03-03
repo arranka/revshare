@@ -14,6 +14,7 @@
 
 /a - Redirect to main page.
 /a/{username} - Stores cookie of user's id if exists and redirects to main page.
+/a/signup/{username} - Stores cookie of user's id if exists and redirects to /register.
 
 /admin/users - Page to manage Users
 /admin/revenue-programs - Page to Manage Revenue Programs
